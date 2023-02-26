@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="bootstrap.css">
+	<link rel="stylesheet" href="style.css">
+	<title></title>
+</head>
+<body class="container-fluid">
+	<div id="main">
+		<div class="row justify-content-md-center">
+			<div class="col col-6" id="calendar">
+				<div class="row" id="progressBar" style="display: flex; justify-content: space-between">
+					<h1 v-on:click="changeName()">Progress:
+					<input style="display: inline; width:2.5em" type="number" placeholder="progress" min="0" :max="project.goal" v-model="project.progress" v-on:change="changeProgress()">
+					/ <input style="display: inline;width:2.5em" type="number" placeholder="goal" :min="project.progress" v-model="project.goal" v-on:change="changeProgress()"></h1>
+					<h1 id="name" v-on:click="activateNameInput()"><b>{{project.name}}</b></h1>
+					<input type="text" class="form-control col col-3" id="nameInput" placeholder="Project Name" v-model="project.name" v-on:change="changeName()" v-on:keydown.enter="changeName()">
+				</div>
+				<h1 v-on:click="changeName()">{{wMonth}} {{date}}, {{cDate.getFullYear()}}<br>
+					Deadline: <input id="deadLine" type="date" v-model="deadlineDate" v-on:change="changeDeadline()">
+				</h1>
+				<div class="form-group" v-on:click="changeName()">
+					<input type="number" placeholder="year" v-model="year" v-on:change="changeMonth()">
+					<input type="number" placeholder="month" v-model="month" v-on:change="changeMonth()">
+				</div>
+				<table class="table table-bordered table-dark" v-on:click="changeName()" id="table">
+					<tr>
+						<th v-for="day in days">{{day}}</th>
+					</tr>
+					<tr v-for="item in weeks" >
+						<td v-for="day in item" v-bind="{id: day.id}">{{day.date}} 
+							<p>{{day.dAv}}</p>
+						</td>
+					</tr>
+				</table>
+				<h2 id="invDeadline">Invalid deadline</h2>
+			</div>
+			<div class="col col-3">
+				<table class="table table-dark">
+					<thead v-on:click="changeName()">
+						<tr>
+							<th colspan="2">Projects</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="item in projects" v-on:click="openProject(item)">
+							<td v-if="item" class="col project">{{item.name}}</td>
+							<td v-if="item" style="text-align: right" class="col">{{item.progress}}/{{item.goal}}</td>
+						</tr>
+						<tr>
+							<td class="col">
+								<button class="btn btn-success" v-on:click="addProject()">Add</button>
+							</td>
+							<td class="col">
+								<button class="btn btn-danger" v-if="projects.length > 1" v-on:click="removeProject()">Remove</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>				
+				<button class="btn btn-danger" v-on:click="resetData()">Reset</button>	
+			</div>
+		</div>
+	</div>
+</body>
+<script src="vue.js"></script>
+<script src="script.js"></script>
+</html>

@@ -1,0 +1,30 @@
+#today {
+    background-color: green;
+}
+p {
+    color:orange;
+    display:inline;
+    float:right;
+}
+#progressBar{
+    margin:1em 0 0 0;
+}
+#deadLine {
+    width:  7.2em;
+}
+#red {
+    background-color: #c82333
+}
+#main {
+    margin-top: 1rem;
+}
+#nameInput {
+    display: none;
+}
+.project:hover {
+    cursor: pointer;
+}
+#invDeadline {
+    display: none;
+    color: #c82333
+}
