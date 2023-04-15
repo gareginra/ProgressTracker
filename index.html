@@ -17,11 +17,11 @@
 					<input type="text" class="form-control col col-3" id="nameInput" placeholder="Project Name" v-model="project.name" v-on:change="changeName()" v-on:keydown.enter="changeName()">
 				</div>
 				<h1 v-on:click="changeName()">{{wMonth}} {{date}}, {{cDate.getFullYear()}}<br>
-					Deadline: <input id="deadLine" type="date" v-model="deadlineDate" v-on:change="changeDeadline()">
+					Deadline: <input id="deadLine" type="date" v-model="deadlineDate" v-on:change="invDeadlineCheck(deadlineDate)">
 				</h1>
 				<div class="form-group" v-on:click="changeName()">
-					<input type="number" placeholder="year" v-model="year" v-on:change="changeMonth()">
-					<input type="number" placeholder="month" v-model="month" v-on:change="changeMonth()">
+					<input id="calYear" type="number" placeholder="year" v-model="year" v-on:change="changeMonth()">
+					<input id="calMonth" type="number" placeholder="month" v-model="month" v-on:change="changeMonth()">
 				</div>
 				<table class="table table-bordered table-dark" v-on:click="changeName()" id="table">
 					<tr>

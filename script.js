@@ -194,9 +194,13 @@ new Vue({
 				document.getElementById("invDeadline").style.display = "block";
 				document.getElementById("deadLine").min = this.cDateISO;
 				document.getElementById("table").style.display = "none";
+				document.getElementById("calYear").style.display = "none";
+				document.getElementById("calMonth").style.display = "none";
 			} else {
 				document.getElementById("invDeadline").style.display = "none";
 				document.getElementById("table").style.display = "table";
+				document.getElementById("calYear").style.display = "inline";
+				document.getElementById("calMonth").style.display = "inline";
 				this.changeDeadline();
 			}
 		}
