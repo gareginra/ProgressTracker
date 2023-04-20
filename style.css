@@ -1,10 +1,29 @@
-#today {
+.today {
     background-color: green;
+}
+svg {
+    display: inline;
+    stroke-dasharray: 320;
+    stroke-dashoffset: 0;
+    animation: dash 1.5s linear;
+}
+@keyframes dash {
+    from {
+      stroke-dashoffset: 320;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
 }
 p {
     color:orange;
     display:inline;
     float:right;
+}
+.day {
+    display: flex;
+    justify-content: space-between;
+    align-content: top;
 }
 #progressBar{
     margin:1em 0 0 0;
@@ -12,14 +31,12 @@ p {
 #deadLine {
     width:  7.2em;
 }
-#red {
+.red {
     background-color: #c82333
 }
 #main {
+    visibility: hidden;
     margin-top: 1rem;
-}
-#nameInput {
-    display: none;
 }
 .project:hover {
     cursor: pointer;
@@ -27,4 +44,15 @@ p {
 #invDeadline {
     display: none;
     color: #c82333
+}
+#top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 1em 0 1rem;
+}
+#right-section {
+    display: inline-flex;
+    flex-direction: column;
+    margin-top: 1rem;
 }
