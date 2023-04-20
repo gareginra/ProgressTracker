@@ -9,27 +9,48 @@
 	<div id="main">
 		<div class="row justify-content-md-center">
 			<div class="col col-6" id="calendar">
-				<div class="row" id="progressBar" style="display: flex; justify-content: space-between">
-					<h1 v-on:click="changeName()">Progress:
-					<input style="display: inline; width:2.5em" type="number" placeholder="progress" min="0" :max="project.goal" v-model="project.progress" v-on:change="changeProgress()">
-					/ <input style="display: inline;width:2.5em" type="number" placeholder="goal" :min="project.progress" v-model="project.goal" v-on:change="changeProgress()"></h1>
-					<h1 id="name" v-on:click="activateNameInput()"><b>{{project.name}}</b></h1>
-					<input type="text" class="form-control col col-3" id="nameInput" placeholder="Project Name" v-model="project.name" v-on:change="changeName()" v-on:keydown.enter="changeName()">
+				<div class="row" id="top">
+					<div id="left-section">
+						<div class="row" id="progressBar">
+							<h1>Progress:
+								<input style="display: inline; width:2.5em" type="number" placeholder="progress" min="0" :max="project.goal" v-model="project.progress" v-on:change="changeProgress()">
+								/ <input style="display: inline;width:2.5em" type="number" placeholder="goal" :min="project.progress" v-model="project.goal" v-on:change="changeProgress()">
+							</h1>
+						</div>
+						<h1>{{wMonth}} {{date}}, {{cDate.getFullYear()}}<br>
+							Deadline: <input id="deadLine" type="date" :min="minDeadlineDate" v-model="project.deadlineDate" v-on:change="invDeadlineCheck(project.deadlineDate)" />
+						</h1>
+						<div class="form-group">
+							<input id="calYear" type="number" placeholder="year" v-model="year" v-on:change="changeMonth()">
+							<input id="calMonth" type="number" placeholder="month" v-model="month" v-on:change="changeMonth()">
+						</div>
+					</div>
+					<div id="right-section">
+						<h1 v-if="!nameInputActive" id="name" v-on:click="activateNameInput()"><b>{{project.name}}</b></h1>
+						<div v-if="nameInputActive" class="input-group mb-3" id="nameInput">
+							<input type="text" aria-describedby="basic-addon2" maxlength="70" class="form-control" id="nameInputId" placeholder="Project Name" v-model="project.name" v-on:focusout="changeName()" autofocus />
+							<div class="input-group-append">
+								<button class="input-group-text" id="basic-addon2">✓</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<h1 v-on:click="changeName()">{{wMonth}} {{date}}, {{cDate.getFullYear()}}<br>
-					Deadline: <input id="deadLine" type="date" v-model="deadlineDate" v-on:change="invDeadlineCheck(deadlineDate)">
-				</h1>
-				<div class="form-group" v-on:click="changeName()">
-					<input id="calYear" type="number" placeholder="year" v-model="year" v-on:change="changeMonth()">
-					<input id="calMonth" type="number" placeholder="month" v-model="month" v-on:change="changeMonth()">
-				</div>
-				<table class="table table-bordered table-dark" v-on:click="changeName()" id="table">
+				<table class="table table-bordered table-dark" id="table">
 					<tr>
 						<th v-for="day in days">{{day}}</th>
 					</tr>
-					<tr v-for="item in weeks" >
-						<td v-for="day in item" v-bind="{id: day.id}">{{day.date}} 
-							<p>{{day.dAv}}</p>
+					<tr v-for="item in weeks">
+						<td v-for="day in item" v-bind="{class: day.id}" v-on:click="markUnmark(day)" :id=day.date style="padding:.5rem">
+							<div class="day">
+								<b>{{day.date}}</b>
+								<svg v-if="day.marked" width="40" height="40" style="position:relative;">
+									<g stroke="red" stroke-width="5">
+										<path d="M5 5 L35 35" stroke-linecap="round" />
+										<path d="M35 5 L5 35" stroke-linecap="round" />
+									</g>
+								</svg>
+								<p>{{day.dAv}}</p>
+							</div>
 						</td>
 					</tr>
 				</table>
@@ -37,7 +58,7 @@
 			</div>
 			<div class="col col-3">
 				<table class="table table-dark">
-					<thead v-on:click="changeName()">
+					<thead>
 						<tr>
 							<th colspan="2">Projects</th>
 						</tr>
